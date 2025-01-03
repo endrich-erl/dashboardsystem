@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #004d4d, #007070);
+            color: white;
+            width: 100%;
+            padding: 20px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between; /* Distribute space between button and title */
+            align-items: center;
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Button Styling */
+        .back-button {
+            position: absolute;
+            left: 20px;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: 2px solid #00e6e6;
+            border-radius: 25px;
+            font-weight: bold;
+            background: transparent;
+            transition: all 0.4s;
+        }
+
+        .back-button:hover {
+            background: #00e6e6;
+            color: #004d4d;
+            transform: scale(1.1);
+        }
+
+        /* Center Title Styling */
+        .dashboard-title {
+            font-size: 3rem;
+            margin: 0;
+            text-align: center;
+            text-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
+            flex-grow: 1;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 1200px;
+            margin: 50px auto 0 auto;
+        }
+
+        /* Card Styling */
+        .card {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            padding: 20px;
+            margin: 20px 0;
+            width: 100%;
+            max-width: 900px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #00b8d4, #004d4d);
+            color: white;
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 600;
+            text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .content {
+            padding: 20px;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: #555;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #004d4d;
+            color: white;
+        }
+
+        .status-completed {
+            background-color: #28a745; /* Green for Completed */
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .status-in-progress {
+            background-color: #007bff; /* Blue for In Progress */
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .status-not-started {
+            background-color: #dc3545; /* Red for Not Started */
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #004d4d, #007070);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        /* Form Styling */
+        .input-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            width: 100%;
+            max-width: 900px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #004d4d;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+
+        button {
+            background-color: #004d4d;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        button:hover {
+            background-color: #00e6e6;
+        }
+		
+		        /* Remove Button Styling */
+        .remove-btn {
+            background-color: #dc3545; /* Red for Remove button */
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .remove-btn:hover {
+            background-color: #c82333; /* Darker red on hover */
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="dashboard.html" class="back-button">Back</a>
+            <h1 class="dashboard-title">Progress Project</h1>
+        </div>
+    </header>
+
+    <main>
+        <!-- Task Input Form -->
+        <section class="input-card">
+            <div class="card-header">Enter Project Information</div>
+            <div class="content">
+                <label for="projectName">Project Name:</label>
+                <input type="text" id="projectName" placeholder="Enter project name">
+
+                <label for="taskStatus">Task Status:</label>
+                <select id="taskStatus">
+                    <option value="">Select status</option>
+                    <option value="Completed">Completed</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Not Started">Not Started</option>
+                </select>
+
+                <label for="completionDate">Date Completed:</label>
+                <input type="date" id="completionDate">
+
+                <label for="teamResponsible">Team/Person Responsible:</label>
+                <input type="text" id="teamResponsible" placeholder="Enter team or person responsible">
+
+                <button id="addTaskButton">Add Task</button>
+            </div>
+        </section>
+
+        <!-- Task Table -->
+        <section class="card">
+            <div class="card-header">Task List</div>
+            <div class="content">
+                <table id="task-table">
+                    <thead>
+                        <tr>
+                            <th>Task/Project Name</th>
+                            <th>Status</th>
+                            <th>Date Completed</th>
+                            <th>Team/Person Responsible</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dynamic content will go here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Progress Project. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+         document.addEventListener("DOMContentLoaded", () => {
+            const projectNameInput = document.getElementById("projectName");
+            const taskStatusInput = document.getElementById("taskStatus");
+            const completionDateInput = document.getElementById("completionDate");
+            const teamResponsibleInput = document.getElementById("teamResponsible");
+            const addTaskButton = document.getElementById("addTaskButton");
+            const table = document.getElementById("task-table");
+            const tableBody = table.querySelector("tbody");
+
+            // Load saved tasks from localStorage
+            const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            savedTasks.forEach(task => {
+                addTaskToTable(task);
+            });
+
+            // Add new task to table and save in localStorage
+            addTaskButton.addEventListener("click", () => {
+                const projectName = projectNameInput.value.trim();
+                const taskStatus = taskStatusInput.value.trim();
+                const completionDate = completionDateInput.value;
+                const teamResponsible = teamResponsibleInput.value.trim();
+
+                if (!projectName || !taskStatus || !completionDate || !teamResponsible) {
+                    alert("Please fill out all fields before adding a task.");
+                    return;
+                }
+
+                const task = {
+                    projectName,
+                    taskStatus,
+                    completionDate,
+                    teamResponsible
+                };
+
+                // Save task in localStorage
+                savedTasks.push(task);
+                localStorage.setItem("tasks", JSON.stringify(savedTasks));
+
+                addTaskToTable(task);
+
+                // Clear inputs
+                projectNameInput.value = "";
+                taskStatusInput.value = "";
+                completionDateInput.value = "";
+                teamResponsibleInput.value = "";
+            });
+
+            // Add task row to table
+            function addTaskToTable(task) {
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${task.projectName}</td>
+                    <td class="status-${task.taskStatus.toLowerCase().replace(/\s+/g, '-')}">${task.taskStatus}</td>
+                    <td>${task.completionDate}</td>
+                    <td>${task.teamResponsible}</td>
+                    <td><button class="remove-btn">Remove</button></td>
+                `;
+
+                // Add remove button functionality
+                row.querySelector(".remove-btn").addEventListener("click", () => {
+                    removeTask(task);
+                    row.remove(); // Remove row from table
+                });
+
+                tableBody.appendChild(row);
+                table.style.display = "table"; // Show table when data is added
+            }
+
+            // Remove task from localStorage and table
+            function removeTask(task) {
+                const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+                const updatedTasks = savedTasks.filter(t => {
+                    // Remove the task that matches
+                    return t.projectName !== task.projectName || t.completionDate !== task.completionDate;
+                });
+                localStorage.setItem("tasks", JSON.stringify(updatedTasks)); // Save updated tasks to localStorage
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=ggc7fGGeYOmetp13UxhwaLvPKxL7DaSOTLGsDK-e7MUXlnMDjIbDvwcujsiOB1_VYWxfbODve_4MOOsOJtzPHLs7-mV41VWEDlZKzIeDUQ8h2yAz6I7ETZGJyG486jXJRwmPBo2ukIjRVkx6uZ2gxuIgBKep7cT_OU0waCgr1s_52NLBkw5lLy2nsIk1E8M3We9ptEowQXgor7i52gNwCXjwYHJCL94d-enoK3QIa0_wqAzV3qci4ccwPpK0fJMaYjjaExq3w6YUsxI2trmAtCKbXthMMjnEjDJrXBF-LPo19qoB34SypEcgkThaDqU3uZErAHTGex9rATzP6B8d83hFRFcetHAKBiUGYEQyuVqhqKGZINWnE2CL6Xs3lNPVgOOFtRzzGESrjLd-ctWuKafrkKK7aIf9hQrX7QkKyCBC3V3qcbE4v0jNf8JMJzn1eZQZyB0JiJEw0YWJHLqCKCEjZxJ7-IaDzcRXnBVtn6fHhfGKUwFbLLta2waAoAr-z0SNovB3Yfyf66ztwHWsutk9pq4DIDpl4xSx2ouz_OY8lC0pKA6woZfMl3QvIYneuKRjA2RGEw6SXhzy5zsU_OKPeh8HAUj7w1HldrDJBvYi3mSMT2weBqhOzlWcchDuskVN8sjoKAaJDk2_O3653Qz8lW0NjkzsdMrlEJh2AtmCNZh8egKMaULBxDSoh_RGVXviQ4nLNABC0DuNBo1MpMMYKFRULvT4WbBnPKPGz7048rLHpm_-xrAJDuVVZHl2G_jyj3W4rSynVfn5cDFluFtdCcKyD-9d_v9BB9ZzFluTd4uh4OoImOYibW7f_24bAmdCSaipiNbbcdmEK7kUFO93EDefU3zx13nLEQS8XsUAUHaIbRs4S9n6QuK4ajGZzaPqNmI0Zt8zniGd6VslfoAWdsHUYtyNckdNJ_5Uqw1gknGBk4dSJzAGGlSKb7FExMGgQEaYQHXq2_m_0Iq5sfiPnSYux9_mLqJyVO9wuLMc8ZRenJtlVZSjkv4IpZciWt2MxMlzMniP07bz_WhgGL9UZlpvi19Dty4j1IVCtRo-b8VMvl-A7YIsg9h-5SWGYUHTQFMe2sGAJn04RlwD2fAGsMggWqiyTSW8q1jYoJEEb9uvG3Dx2ybRFcgKeOe9ojRCXdVtlkVn1jrEJFbw1Nv8-brm1fj_KFebMGwK4nQntLw8sERfPC51HZcg90OdrmLoBEH_d0OU3NYXf6F7pbVBr2zd1LlcjjVJmTHAUit1ieAWV9ypHKDNtNAN4AlPVOYY2nlJNFWQSwIc5RDInfsz7MEBtu4dFaspZE25ESOis6jJ-tq3FqcderDpZtdLDJuaWVB2POW9mcbYO4SOp43dnBON8nntSZRVKhw_8s-xf4T-XCR31NXnG_rrb5ltWfX6wpfa0X1sXXvjFNLsNT6L67KmGhK0AtQNo25qB4wQxxu3i10x4-zg1rQCuuICIYinZFJXzJ2JR1OIrNosEXBbtE4XX90MrBU42kK23bzQaS_RIpUD62jxX3fb6nXB0Vw31IOl6VvnlosJV3SfVcyM8JWLd0GCQHgMk8OIDBfegAHUzImPotgm7N9iuJAsCpgc1vJN3DgBJXfY6SDZpXigNkV4OldUoBnfoa2qcCu0JnplMqF1IwoglrKj47POL2SpM-nh6vP0Q1-dETSStA" nonce="edf2b05e517261d4eeedc2a6dd61b407" charset="UTF-8"></script><style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background-color: #004d4d;
+            color: white;
+            padding: 20px;
+            width: 100%;
+        }
+
+        header h1 {
+            font-size: 2rem;
+        }
+
+          /* Back Button Styling */
+.back-button {
+    position: absolute;
+    left: 20px;
+    top: 15px; /* Adjusted to move the button up */
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border: 2px solid #00e6e6;
+    border-radius: 25px;
+    font-weight: bold;
+    background: transparent;
+    transition: all 0.4s;
+}
+
+.back-button:hover {
+    background: #00e6e6;
+    color: #004d4d;
+    transform: scale(1.1);
+}
+
+
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 60px;
+        }
+
+        section {
+            margin: 20px;
+            width: 100%;
+            max-width: 45%;
+            flex: 1;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #004d4d;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #004d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: #00e6e6;
+        }
+
+        .event-item {
+            background-color: #e0f7fa;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #004d4d;
+            color: white;
+        }
+
+        .chart-container {
+            margin: 20px 0;
+        }
+
+        canvas {
+            width: 100%;
+        }
+
+        .notification-box {
+            background-color: #ff9800;
+            color: white;
+            padding: 15px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 1200px;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+
+        .remove-button {
+            background-color: #e53935;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .remove-button:hover {
+            background-color: #d32f2f;
+        }
+
+ /* Container for buttons with vertical stacking */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between buttons */
+    align-items: flex-start; /* Align buttons to the left */
+    margin-top: 20px;
+    padding-left: 20px; /* Add some padding to give space from the left edge */
+}
+
+/* Styling for table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Styling for the 'Clear All History' button */
+#clearAllButton {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 12px 30px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#clearAllButton:hover {
+    background-color: #e53935;
+}
+
+/* Styling for the 'Print Results' button */
+#printResultsButton {
+    background-color: #1976d2;
+    color: white;
+    padding: 12px 30px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#printResultsButton:hover {
+    background-color: #1565c0;
+}
+
+/* Styling for the 'Share Link' button (appears at the bottom) */
+#shareLinkButton {
+    background-color: #009688;
+    color: white;
+    padding: 12px 30px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px; /* Add space above the button */
+}
+
+#shareLinkButton:hover {
+    background-color: #00796b;
+}
+
+/* Adding hover effect for buttons */
+.action-buttons button {
+    transition: transform 0.2s ease;
+}
+
+.action-buttons button:hover {
+    transform: translateY(-3px);
+}
+
+   
+   </style>
+</head>
+<body>
+    <header>
+        <h1>Event Management</h1>
+        <div class="back-button-container">
+            <button onclick="window.location.href='dashboard.html'" class="back-button">Back</button>
+        </div>
+    </header>
+    <main>
+        <section>
+            <h2>Create Event</h2>
+            <form id="eventForm">
+                <label for="eventName">Event Name:</label>
+                <input type="text" id="eventName" required>
+
+                <label for="eventDate">Event Date:</label>
+                <input type="date" id="eventDate" required>
+
+                <label for="eventTime">Event Time:</label>
+                <input type="time" id="eventTime" required>
+
+                <label for="eventLocation">Event Location:</label>
+                <input type="text" id="eventLocation" required>
+
+                <button type="submit">Create Event</button>
+            </form>
+            <h2>Upcoming Events</h2>
+            <div id="eventList"></div>
+        </section>
+
+        <section>
+            <h2>Register Participant</h2>
+            <form id="participantForm">
+                <label for="selectEvent">Select Event:</label>
+                <select id="selectEvent" required>
+                    <option value="">Select an event</option>
+                </select>
+
+                <label for="participantName">Name:</label>
+                <input type="text" id="participantName" required>
+
+                <label for="participantAge">Age:</label>
+                <input type="number" id="participantAge" placeholder="Age (Optional)">
+
+                <label for="participantGender">Gender:</label>
+                <select id="participantGender" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label for="participantContact">Contact Number:</label>
+                <input type="text" id="participantContact" placeholder="Contact (Optional)">
+
+                <label for="participantGmail">Gmail:</label>
+                <input type="email" id="participantGmail" placeholder="Gmail (Optional)">
+
+                <label for="participantSitio">Sitio/Barangay:</label>
+                <input type="text" id="participantSitio" required>
+
+                <button type="submit">Register Participant</button>
+            </form>
+
+            <h2>Registered Participants List</h2>
+            <table id="participantsTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Contact Number</th>
+                        <th>Gmail</th>
+                        <th>Sitio/Barangay</th>
+                        <th>Event</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+           <div class="action-buttons">
+        <button id="clearAllButton">Clear All History</button>
+        <button id="printResultsButton">Print Results</button>
+		<button id="shareLinkButton">Share Link</button>
+    </div>
+
+        </section>
+
+        <section>
+            <div class="chart-container">
+                <canvas id="barChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="ageBarChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="genderPieChart"></canvas>
+            </div>
+            <div class="notification-box" id="notificationBox">
+                <strong>Schedule for today:</strong> <span id="notificationMessage"></span>
+            </div>
+
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+    const participantsTable = document.getElementById("participantsTable").getElementsByTagName('tbody')[0];
+    const participantForm = document.getElementById("participantForm");
+    const eventForm = document.getElementById("eventForm");
+    const eventList = document.getElementById("eventList");
+    const selectEvent = document.getElementById("selectEvent");
+    const clearAllButton = document.getElementById("clearAllButton");
+    const notificationBox = document.getElementById("notificationBox");
+    const notificationMessage = document.getElementById("notificationMessage");
+    const shareLinkButton = document.getElementById("shareLinkButton");
+    const printResultsButton = document.getElementById("printResultsButton");
+
+    let events = JSON.parse(localStorage.getItem("events")) || [];
+    let participants = JSON.parse(localStorage.getItem("participants")) || [];
+
+    let barChart, ageBarChart, genderPieChart;
+
+    const saveToLocalStorage = () => {
+        localStorage.setItem("events", JSON.stringify(events));
+        localStorage.setItem("participants", JSON.stringify(participants));
+    };
+
+    const renderEvents = () => {
+        eventList.innerHTML = "";
+        selectEvent.innerHTML = '<option value="">Select an event</option>';
+        events.forEach((event, index) => {
+            const eventItem = document.createElement("div");
+            eventItem.className = "event-item";
+            eventItem.innerHTML = `
+                <div>
+                    <strong>${event.name}</strong>
+                    <p>${event.date} at ${event.time}, Location: ${event.location}</p>
+                </div>
+                <button class="remove-button" data-index="${index}">Delete</button>
+            `;
+            eventList.appendChild(eventItem);
+
+            const option = document.createElement("option");
+            option.value = event.name;
+            option.textContent = event.name;
+            selectEvent.appendChild(option);
+        });
+    };
+
+    const renderParticipants = () => {
+        participantsTable.innerHTML = "";
+        participants.forEach((participant) => {
+            const row = participantsTable.insertRow();
+            row.innerHTML = `
+                <td>${participant.name}</td>
+                <td>${participant.age || 'N/A'}</td> <!-- Display 'N/A' if age is empty -->
+                <td>${participant.gender}</td>
+                <td>${participant.contact || 'N/A'}</td> <!-- Display 'N/A' if contact is empty -->
+                <td>${participant.gmail !== '' ? participant.gmail : 'N/A'}</td> <!-- Display 'N/A' if gmail is empty -->
+                <td>${participant.sitio}</td>
+                <td>${participant.event}</td>
+            `;
+        });
+    };
+
+    const displayNotification = () => {
+        const today = new Date().toISOString().split('T')[0];
+        const todayEvents = events.filter(event => event.date === today);
+        
+        if (todayEvents.length > 0) {
+            notificationBox.style.display = "block";
+            notificationMessage.textContent = todayEvents.map(event => 
+                `${event.name} at ${event.time}, Location: ${event.location}`).join(", ");
+        } else {
+            notificationBox.style.display = "none";
+        }
+    };
+
+    const updateCharts = () => {
+        const eventCounts = events.map(event => {
+            return participants.filter(participant => participant.event === event.name).length;
+        });
+
+        const ageData = participants.map(participant => participant.age);
+        const ageCategories = { "<18": 0, "18-25": 0, "26-40": 0, ">40": 0 };
+        ageData.forEach(age => {
+            if (age < 18) ageCategories["<18"]++;
+            else if (age <= 25) ageCategories["18-25"]++;
+            else if (age <= 40) ageCategories["26-40"]++;
+            else ageCategories[">40"]++;
+        });
+
+        const genderData = { Male: 0, Female: 0, Other: 0 };
+        participants.forEach(participant => {
+            genderData[participant.gender]++;
+        });
+
+        // Update bar chart
+        if (barChart) barChart.destroy();
+        barChart = new Chart(document.getElementById("barChart"), {
+            type: 'bar',
+            data: {
+                labels: events.map(event => event.name),
+                datasets: [{
+                    label: "Participants per Event",
+                    data: eventCounts,
+                    backgroundColor: '#00b7eb'
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+
+        // Update age bar chart
+        if (ageBarChart) ageBarChart.destroy();
+        ageBarChart = new Chart(document.getElementById("ageBarChart"), {
+            type: 'bar',
+            data: {
+                labels: Object.keys(ageCategories),
+                datasets: [{
+                    label: "Age Distribution",
+                    data: Object.values(ageCategories),
+                    backgroundColor: '#ff7f50 '
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+
+        // Update gender pie chart
+        if (genderPieChart) genderPieChart.destroy();
+        genderPieChart = new Chart(document.getElementById("genderPieChart"), {
+            type: 'pie',
+            data: {
+                labels: Object.keys(genderData),
+                datasets: [{
+                    label: "Gender Distribution",
+                    data: Object.values(genderData),
+                    backgroundColor: ['#b9f2ff', '#ffb6c1', '#f0e68c']
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    };
+
+    // Event listeners
+    eventForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const eventName = document.getElementById("eventName").value;
+        const eventDate = document.getElementById("eventDate").value;
+        const eventTime = document.getElementById("eventTime").value;
+        const eventLocation = document.getElementById("eventLocation").value;
+
+        const newEvent = { name: eventName, date: eventDate, time: eventTime, location: eventLocation };
+        events.push(newEvent);
+        saveToLocalStorage();
+        renderEvents();
+        updateCharts();
+
+        // Clear input fields after submit
+        eventForm.reset();
+
+        // Check if the event is today and show notification
+        const today = new Date().toISOString().split('T')[0];
+        if (eventDate === today) {
+            displayNotification();
+        }
+    });
+
+    participantForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const participantName = document.getElementById("participantName").value;
+        const participantAge = document.getElementById("participantAge").value;
+        const participantGender = document.getElementById("participantGender").value;
+        const participantContact = document.getElementById("participantContact").value || ''; // Set default to empty string if empty
+        const participantGmail = document.getElementById("participantGmail").value; // Get the Gmail value as is
+        const participantSitio = document.getElementById("participantSitio").value;
+        const participantEvent = selectEvent.value;
+
+        const newParticipant = {
+            name: participantName,
+            age: participantAge,
+            gender: participantGender,
+            contact: participantContact, // This is now optional
+            gmail: participantGmail.trim() === '' ? 'N/A' : participantGmail, // If Gmail is empty, set to 'N/A'
+            sitio: participantSitio,
+            event: participantEvent
+        };
+
+        participants.push(newParticipant);
+        saveToLocalStorage();
+        renderParticipants();
+        updateCharts();
+
+        // Clear input fields after submit
+        participantForm.reset();
+    });
+
+    clearAllButton.addEventListener("click", () => {
+        localStorage.clear();
+        events = [];
+        participants = [];
+        renderEvents();
+        renderParticipants();
+        updateCharts();
+        displayNotification();
+    });
+
+    document.getElementById("eventList").addEventListener("click", (e) => {
+        if (e.target.classList.contains("remove-button")) {
+            const index = e.target.dataset.index;
+            const deletedEvent = events[index];
+            events.splice(index, 1);
+            saveToLocalStorage();
+            renderEvents();
+            updateCharts();
+
+            // If deleted event was today's event, update the notification
+            displayNotification();
+        }
+    });
+
+    shareLinkButton.addEventListener("click", async () => {
+        // Get the latest data for upcoming events and participants
+        const upcomingEvents = events.map(event => `${event.name} - ${event.date} at ${event.time}, ${event.location}`).join("\n");
+        const participantsList = participants.map(p => `${p.name}, ${p.age}, ${p.gender}, ${p.contact}, ${p.gmail}, ${p.sitio}, Event: ${p.event}`).join("\n");
+
+        const formattedData = `
+Upcoming Events:
+${upcomingEvents}
+
+Registered Participants:
+${participantsList}
+        `;
+
+        const shareData = {
+            title: "Event Data",
+            text: formattedData,
+            url: window.location.href
+        };
+
+        // Check if the browser supports sharing
+        if (navigator.share) {
+            try {
+                await navigator.share(shareData);
+            } catch (err) {
+                console.error("Share failed:", err);
+            }
+        } else {
+            // Fallback: Copy the formatted data to clipboard
+            navigator.clipboard.writeText(formattedData).then(() => {
+                alert("Event data copied to clipboard!");
+            }).catch(err => {
+                console.error("Failed to copy data:", err);
+            });
+        }
+    });
+
+    printResultsButton.addEventListener("click", () => {
+        // Get the latest data for upcoming events and participants
+        const upcomingEvents = events.map(event => `<li>${event.name} - ${event.date} at ${event.time}, ${event.location}</li>`).join('');
+        const participantsList = participants.map(p => `
+            <tr>
+                <td>${p.name}</td>
+                <td>${p.age}</td>
+                <td>${p.gender}</td>
+                <td>${p.contact}</td>
+                <td>${p.gmail}</td>
+                <td>${p.sitio}</td>
+                <td>${p.event}</td>
+            </tr>
+        `).join('');
+
+        const printableContent = `
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Print Event Data</title>
+</head>
+<body>
+    <h1>Upcoming Events</h1>
+    <ul>
+        ${upcomingEvents}
+    </ul>
+    <h1>Registered Participants</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Contact</th>
+                <th>Email</th>
+                <th>Location</th>
+                <th>Event</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${participantsList}
+        </tbody>
+    </table>
+</body>
+</html>
+        `;
+
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(printableContent);
+        printWindow.document.close();
+        printWindow.print();
+    });
+
+    // Initial render
+    renderEvents();
+    renderParticipants();
+    displayNotification();
+    updateCharts();
+});
+
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizational Chart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #004d4d, #007070);
+            color: white;
+            width: 100%;
+            padding: 20px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between; /* Distribute space between button and title */
+            align-items: center;
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Button Styling */
+        .back-button {
+    position: absolute;
+    left: 20px; /* Move it further left */
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border: 2px solid #00e6e6;
+    border-radius: 25px;
+    font-weight: bold;
+    background: transparent;
+    transition: all 0.4s;
+}
+
+        .back-button:hover {
+            background: #00e6e6;
+            color: #004d4d;
+            transform: scale(1.1);
+        }
+
+        /* Center Title Styling */
+        .dashboard-title {
+            font-size: 3rem;
+            margin: 0;
+            text-align: center;
+            text-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
+            flex-grow: 1; /* Ensures title takes up available space to keep it centered */
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 1200px;
+            margin: 50px auto 0 auto;
+        }
+
+        /* Card Styling */
+        .card {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            padding: 20px;
+            margin: 20px 0;
+            width: 100%;
+            max-width: 900px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #00b8d4, #004d4d);
+            color: white;
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 600;
+            text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .content {
+            padding: 20px;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: #555;
+        }
+
+        .content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .content li {
+            padding: 12px 0;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: center; /* Center the content inside each list item */
+            text-align: center; /* Align the text in the center */
+            font-weight: 400;
+            font-size: 1.1rem;
+        }
+
+        .content li:last-child {
+            border-bottom: none;
+        }
+
+        .content li::before {
+            content: "•";
+            color: #004d4d;
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #004d4d, #007070);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        /* Animation and Decorations */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.5), transparent);
+            transform: translate(-50%, -50%);
+            opacity: 0.6;
+        }
+
+        .card:hover::before {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.4;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.6;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-title {
+                font-size: 2.2rem;
+            }
+
+            .back-button {
+                left: 10px;
+            }
+
+            .card {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="dashboard.html" class="back-button">Back</a>
+            <h1 class="dashboard-title">Organizational Chart</h1>
+        </div>
+    </header>
+
+    <main>
+        <!-- Garbage Collection Schedule -->
+        <section class="card">
+            <div class="card-header">Garbage Collection Schedule</div>
+            <div class="content">
+                <ul>
+                    <li><strong>MORNING:</strong> Monday to Sunday, 6:00 AM - 8:00 AM</li>
+                    <li><strong>EVENING:</strong> Monday to Sunday, 6:00 PM - 8:00 PM</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Barangay Officials -->
+        <section class="card">
+            <div class="card-header">Barangay Officials</div>
+            <div class="content">
+                <ul>
+                    <li>Barangay Captain: Hon. Ranulfo Godinez Emperio</li>
+                    <li>Barangay Secretary: Jessica San Mateo Tongol</li>
+                    <li>Barangay Treasurer: Mary Liz Sevillejo</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Barangay Council -->
+        <section class="card">
+            <div class="card-header">Barangay Council</div>
+            <div class="content">
+                <ul>
+                    <li>Hon. Henry D. Booc</li>
+                    <li>Hon. Carlito P. Booc</li>
+                    <li>Hon. Felizardo M. Alde Sr.</li>
+                    <li>Hon. Alvin P. Berezo</li>
+                    <li>Hon. Bonifacio C. Gomez Jr.</li>
+                    <li>Hon. Rodulfo T. Pino Jr.</li>
+                    <li>Hon. Victoriano G. Booc</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SK Officials -->
+        <section class="card">
+            <div class="card-header">SK Officials</div>
+            <div class="content">
+                <ul>
+                    <li>SK Chairman: Alex Patricia Q. Bailosis</li>
+                    <li>Tracy Shane A. Dulce</li>
+                    <li>Farah Tuñacao</li>
+                    <li>Kyla Jean Mahusay</li>
+                    <li>Louie Gie Ycong</li>
+                    <li>Jay-r Igot</li>
+                    <li>Kyle Alegres</li>
+                    <li>Amber Ann Mahinay</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Barangay Pusok Information. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

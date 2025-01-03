@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barangay Pusok Information System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            padding: 20px;
+            background: linear-gradient(to bottom, rgba(0, 139, 139, 0.4), rgba(0, 139, 139, 0.5)),
+                        url('1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+            animation: fadeIn 1.5s ease-in-out;
+            margin: 0;
+            height: 100vh;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #004d4d;
+            color: #fff;
+            font-weight: 600;
+            padding: 12px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #00e6e6;
+            transform: scale(1.1);
+        }
+
+        h1, h2 {
+            color: #fff;
+            margin: 20px 0;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        section {
+            margin: 20px auto;
+            padding: 25px;
+            border-radius: 12px;
+            width: 80%;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+            animation: slideIn 1s ease-out;
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateY(30px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #00b3b3, #00e6e6);
+            z-index: -1;
+            clip-path: polygon(0 0, 100% 0, 70% 100%, 0 70%);
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+        }
+
+        h2 {
+            color: #004d4d;
+            font-size: 1.8rem;
+        }
+
+        p, ul {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+
+        .icon {
+            margin-right: 10px;
+            color: #00e6e6;
+        }
+
+        .team-member {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            text-align: left;
+            background: linear-gradient(135deg, #00e6e6, #ffffff);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: cardHover 0.3s ease;
+        }
+
+        @keyframes cardHover {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        .team-member:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .team-member img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+            border: 5px solid #004d4d;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member img:hover {
+            transform: rotate(360deg);
+        }
+
+        .team-member div {
+            text-align: left;
+        }
+
+        .team-member strong {
+            display: block;
+            font-size: 1.4rem;
+            color: #004d4d;
+        }
+
+        .team-member em {
+            color: #008b8b;
+            font-size: 1.1rem;
+        }
+
+        .contact-info {
+            font-size: 1.3rem;
+        }
+
+        .contact-info a {
+            color: #008b8b;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-info a:hover {
+            color: #004d4d;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #004d4d;
+            color: white;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        footer a {
+            color: #00e6e6;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            section {
+                width: 100%;
+                padding: 20px;
+            }
+
+            .team-member {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .team-member img {
+                margin-bottom: 15px;
+            }
+
+            .team-member div {
+                text-align: center;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Back Button -->
+    <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Back</a>
+
+    <h1>Barangay Pusok Information System</h1>
+
+    <!-- Mission Section -->
+    <section>
+        <h2>Mission Statement</h2>
+        <p>We ensure the integrity of delivering public services through dedication, hard work, responsible leadership of barangay officials, teamwork, and cooperation among residents of Barangay Pusok. Together, we aim to enhance the quality of life in our community and turn our vision into reality.</p>
+    </section>
+
+    <!-- Vision Section -->
+    <section>
+        <h2>Vision Statement</h2>
+        <p>Barangay Pusok envisions a just society that provides Pusokanons with exceptional public services, fostering sustainable economic opportunities, quality education, health and well-being, a clean environment, and a peaceful, drug-free community.</p>
+    </section>
+
+    <!-- Core Values Section -->
+    <section>
+        <h2>Core Values</h2>
+        <ul>
+            <li><i class="icon">🌱</i><strong>Sustainability:</strong> Promoting eco-friendly practices and solutions.</li>
+            <li><i class="icon">🤝</i><strong>Community Engagement:</strong> Involving locals in programs and decision-making.</li>
+            <li><i class="icon">💡</i><strong>Innovation:</strong> Using technology to drive change.</li>
+            <li><i class="icon">🔍</i><strong>Transparency:</strong> Ensuring all initiatives are open and clear to the community.</li>
+        </ul>
+    </section>
+
+    <!-- Key Services Section -->
+    <section>
+        <h2>Key Services</h2>
+        <p>Barangay Pusok Information System helps track and manage:</p>
+        <ul>
+            <li>Waste management and recycling efforts</li>
+            <li>Tree planting initiatives and environmental conservation</li>
+            <li>Energy reduction programs</li>
+            <li>Community-driven projects and events</li>
+            <li>Tracking progress on sustainability goals</li>
+        </ul>
+    </section>
+
+    <!-- Our Team Section -->
+    <section>
+        <h2>Our Team</h2>
+        <p>Meet the dedicated team working to make Barangay Pusok a better place:</p>
+        <div class="team-member">
+            <img src="Kristelene.jpg" alt="Kristelene Ardiente">
+            <div>
+                <strong>Kristelene Ardiente</strong>
+                <em>Team Leader</em>
+                <p>"Leading with passion and dedication to create a thriving community."</p>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="Tracy.jpg" alt="Tracy Dulce">
+            <div>
+                <strong>Tracy Dulce</strong>
+                <em>Team Member</em>
+                <p>"Committed to fostering collaboration and innovation."</p>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="Jarred.jpg" alt="Jarred Sumalinog">
+            <div>
+                <strong>Jarred Sumalinog</strong>
+                <em>Team Member</em>
+                <p>"Bringing ideas to life for a sustainable future."</p>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="Devrilet.jpg" alt="Devrilet Jabel">
+            <div>
+                <strong>Devrilet Jabel</strong>
+                <em>Team Member</em>
+                <p>"Dedicated to enhancing community well-being."</p>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="Joseph.jpg" alt="Joseph Montalbo">
+            <div>
+                <strong>Joseph Montalbo</strong>
+                <em>Team Member</em>
+                <p>"Innovating solutions for a better tomorrow."</p>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="Jeceryl.jpg" alt="Lorenz Mark Garcia">
+            <div>
+                <strong>Jeceryl May Taneo</strong>
+                <em>Team Member</em>
+                <p>"Building sustainable projects for a greener future."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Information Section -->
+    <section>
+        <h2>Contact Information</h2>
+        <p class="contact-info">Have questions or want to get involved? Reach out to us:</p>
+        <p class="contact-info">
+            Email: <a href="mailto:info@barangaypusok.com">info@barangaypusok.com</a><br>
+            Phone: +63 123 456 7890
+        </p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Barangay Pusok Information System. All Rights Reserved.</p>
+        <p><a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a></p>
+    </footer>
+
+</body>
+</html>

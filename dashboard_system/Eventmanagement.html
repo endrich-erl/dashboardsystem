@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Your existing CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background-color: #008b8b;
+            color: white;
+            padding: 20px;
+            width: 100%;
+        }
+
+        header h1 {
+            font-size: 2rem;
+        }
+
+        .back-button-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            white-space: nowrap; 
+            padding: 10px 20px;
+        }
+
+        .back-button {
+            background-color: #008b8b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #006f6f;
+        }
+
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        section {
+            width: 48%;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            color: #008b8b;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #008b8b;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #006f6f;
+        }
+
+        .event-item {
+            background-color: #e0f7fa;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .event-item button {
+            background-color: #ff3d00;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 8px 20px;;
+            font-size: 0.8rem; /* Minimized button */
+        }
+
+        .event-item button:hover {
+            background-color: #ff5722;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #008b8b;
+            color: white;
+        }
+
+        .chart-container {
+            margin: 20px 0;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        canvas {
+            width: 100%;
+        }
+
+        .notification-box {
+            background-color: #ff9800;
+            color: white;
+            padding: 15px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 1200px;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Event Management</h1>
+        <div class="back-button-container">
+            <button onclick="window.location.href='dashboard.html'" class="back-button">Back to Dashboard</button>
+        </div>
+    </header>
+    <main>
+        <section>
+            <h2>Create Event</h2>
+            <form id="eventForm">
+                <label for="eventName">Event Name:</label>
+                <input type="text" id="eventName" required>
+
+                <label for="eventDate">Event Date:</label>
+                <input type="date" id="eventDate" required>
+
+                <label for="eventTime">Event Time:</label>
+                <input type="time" id="eventTime" required>
+
+                <label for="eventLocation">Event Location:</label>
+                <input type="text" id="eventLocation" required>
+
+                <button type="submit">Create Event</button>
+            </form>
+            <h2>Upcoming Events</h2>
+            <div id="eventList"></div>
+            
+            <div class="notification-box" id="notificationBox">
+                <strong>Events Today:</strong>
+                <ul id="notificationList"></ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Register Participant</h2>
+            <form id="participantForm">
+                <label for="selectEvent">Select Event:</label>
+                <select id="selectEvent" required>
+                    <option value="">Select an event</option>
+                </select>
+
+                <label for="participantName">Name:</label>
+                <input type="text" id="participantName" required>
+
+                <label for="participantAge">Age:</label>
+                <input type="number" id="participantAge" required>
+
+                <label for="participantGender">Gender:</label>
+                <select id="participantGender" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label for="participantContact">Contact Number:</label>
+                <input type="text" id="participantContact" required>
+
+                <label for="participantGmail">Gmail:</label>
+                <input type="email" id="participantGmail" required>
+
+                <label for="participantSitio">Sitio/Barangay:</label>
+                <input type="text" id="participantSitio" required>
+
+                <button type="submit">Register Participant</button>
+            </form>
+
+            <h2>Registered Participants</h2>
+            <table id="participantsTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Contact Number</th>
+                        <th>Gmail</th>
+                        <th>Sitio/Barangay</th>
+                        <th>Event</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <h2>Participant Charts</h2>
+            <div class="chart-container">
+                <canvas id="eventParticipantsChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="ageDistributionChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="genderDistributionChart" style="height: 300px;"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    const eventForm = document.getElementById("eventForm");
+    const participantForm = document.getElementById("participantForm");
+    const participantsTable = document.getElementById("participantsTable").getElementsByTagName('tbody')[0];
+    const eventList = document.getElementById("eventList");
+    const selectEvent = document.getElementById("selectEvent");
+    const notificationBox = document.getElementById("notificationBox");
+    const notificationList = document.getElementById("notificationList");
+
+    let events = [];
+    let participants = [];
+    
+    // Initialize charts
+    const ctxEventParticipants = document.getElementById("eventParticipantsChart").getContext("2d");
+    const ctxAgeDistribution = document.getElementById("ageDistributionChart").getContext("2d");
+    const ctxGenderDistribution = document.getElementById("genderDistributionChart").getContext("2d");
+
+    const eventParticipantsChart = new Chart(ctxEventParticipants, {
+        type: "bar",
+        data: {
+            labels: [],
+            datasets: [{
+                label: "Participants per Event",
+                data: [],
+                backgroundColor: "#b0e0e6",
+                borderColor: "#006f6f",
+                borderWidth: 1
+            }]
+        }
+    });
+
+    const ageDistributionChart = new Chart(ctxAgeDistribution, {
+        type: "bar",
+        data: {
+            labels: ["0-18", "18-30", "31-45", "46-60", "60+"],
+            datasets: [{
+                label: "Age Distribution",
+                data: [0, 0, 0, 0, 0],
+                backgroundColor: "#ff9800",
+                borderColor: "#e65100",
+                borderWidth: 1
+            }]
+        }
+    });
+
+    const genderDistributionChart = new Chart(ctxGenderDistribution, {
+        type: "pie",
+        data: {
+            labels: ["Male", "Female", "Other"],
+            datasets: [{
+                label: "Gender Distribution",
+                data: [0, 0, 0],
+                backgroundColor: ["#36A2EB", "#FF6384", "#FFCD56"]
+            }]
+        }
+    });
+
+    eventForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const eventName = document.getElementById("eventName").value;
+        const eventDate = document.getElementById("eventDate").value;
+        const eventTime = document.getElementById("eventTime").value;
+        const eventLocation = document.getElementById("eventLocation").value;
+
+        const newEvent = { eventName, eventDate, eventTime, eventLocation };
+        events.push(newEvent);
+
+        const eventItem = document.createElement("div");
+        eventItem.classList.add("event-item");
+        eventItem.innerHTML = `
+            <span>${eventName} - ${eventDate} ${eventTime} - ${eventLocation}</span>
+            <button class="delete-btn">Delete</button>
+        `;
+        eventList.appendChild(eventItem);
+
+        const option = document.createElement("option");
+        option.value = eventName;
+        option.textContent = eventName;
+        selectEvent.appendChild(option);
+
+        // Attach the delete event listener dynamically
+        const deleteButton = eventItem.querySelector(".delete-btn");
+        deleteButton.addEventListener("click", () => deleteEvent(events.length - 1));
+
+        document.getElementById("eventForm").reset();
+        checkEventsForToday();
+    });
+
+    participantForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const participantName = document.getElementById("participantName").value;
+        const participantAge = parseInt(document.getElementById("participantAge").value);
+        const participantGender = document.getElementById("participantGender").value;
+        const participantContact = document.getElementById("participantContact").value;
+        const participantGmail = document.getElementById("participantGmail").value;
+        const participantSitio = document.getElementById("participantSitio").value;
+        const selectedEvent = document.getElementById("selectEvent").value;
+
+        const newParticipant = {
+            participantName,
+            participantAge,
+            participantGender,
+            participantContact,
+            participantGmail,
+            participantSitio,
+            selectedEvent
+        };
+
+        participants.push(newParticipant);
+
+        const row = participantsTable.insertRow();
+        row.innerHTML = `
+            <td>${participantName}</td>
+            <td>${participantAge}</td>
+            <td>${participantGender}</td>
+            <td>${participantContact}</td>
+            <td>${participantGmail}</td>
+            <td>${participantSitio}</td>
+            <td>${selectedEvent}</td>
+        `;
+
+        updateCharts();
+        document.getElementById("participantForm").reset();
+    });
+
+    function updateCharts() {
+        const eventNames = [];
+        const participantsPerEvent = [];
+        const ageDistribution = [0, 0, 0, 0, 0];
+        const genderDistribution = [0, 0, 0];
+
+        participants.forEach(participant => {
+            const eventIndex = eventNames.indexOf(participant.selectedEvent);
+            if (eventIndex === -1) {
+                eventNames.push(participant.selectedEvent);
+                participantsPerEvent.push(1);
+            } else {
+                participantsPerEvent[eventIndex]++;
+            }
+
+            if (participant.participantAge < 18) ageDistribution[0]++;
+            else if (participant.participantAge <= 30) ageDistribution[1]++;
+            else if (participant.participantAge <= 45) ageDistribution[2]++;
+            else if (participant.participantAge <= 60) ageDistribution[3]++;
+            else ageDistribution[4]++;
+
+            if (participant.participantGender === "Male") genderDistribution[0]++;
+            else if (participant.participantGender === "Female") genderDistribution[1]++;
+            else genderDistribution[2]++;
+        });
+
+        eventParticipantsChart.data.labels = eventNames;
+        eventParticipantsChart.data.datasets[0].data = participantsPerEvent;
+        eventParticipantsChart.update();
+
+        ageDistributionChart.data.datasets[0].data = ageDistribution;
+        ageDistributionChart.update();
+
+        genderDistributionChart.data.datasets[0].data = genderDistribution;
+        genderDistributionChart.update();
+    }
+
+    function checkEventsForToday() {
+        const today = new Date().toISOString().split("T")[0];
+        const todayEvents = events.filter(event => event.eventDate === today);
+
+        if (todayEvents.length > 0) {
+            notificationList.innerHTML = todayEvents.map(event => `
+                <li>${event.eventName} - ${event.eventDate} ${event.eventTime} - ${event.eventLocation}</li>
+            `).join('');
+            notificationBox.style.display = "block";
+        } else {
+            notificationBox.style.display = "none";
+        }
+    }
+
+    // Initial check for today's events
+    checkEventsForToday();
+
+    // Delete event function
+    function deleteEvent(eventIndex) {
+        // Remove event from the events array
+        events.splice(eventIndex, 1);
+
+        // Remove the corresponding event item from the list
+        eventList.removeChild(eventList.children[eventIndex]);
+
+        // Remove the event from the select dropdown
+        selectEvent.removeChild(selectEvent.children[eventIndex + 1]); // +1 to skip the first "Select Event" option
+
+        checkEventsForToday();
+    }
+});
+
+    </script>
+</body>
+</html>

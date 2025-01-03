@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Management Tracker</title>
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Styling */
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #004d4d;
+            color: white;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        /* Back Button Styling */
+        .back-button {
+            position: absolute;
+            left: 20px;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: 2px solid #00e6e6;
+            border-radius: 25px;
+            font-weight: bold;
+            background: transparent;
+            transition: all 0.4s;
+        }
+
+        .back-button:hover {
+            background: #00e6e6;
+            color: #004d4d;
+            transform: scale(1.1);
+        }
+
+        /* Main content styling */
+        main {
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        section {
+            margin: 20px 0;
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #004d4d;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input:invalid {
+            border-color: red;
+        }
+
+        input:valid {
+            border-color: green;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #004d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #00e6e6;
+            color: #004d4d;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 15px;
+            font-size: 1.1rem;
+        }
+
+        table th {
+            background-color: #004d4d;
+            color: white;
+            font-weight: bold;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Chart Styling */
+        canvas {
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            button {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            input {
+                width: 100%;
+            }
+        }
+
+        .remove-btn {
+            background-color: #dc143c; /* Crimson color */
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .remove-btn:hover {
+            background-color: #ff4d66;
+        }
+
+        .map img {
+            width: 100%;
+            border-radius: 10px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+</head>
+<body>
+    <header>
+        <h1>Waste Management Tracker</h1>
+        <button onclick="window.location.href='dashboard.html'" class="back-button">Back</button>
+    </header>
+    <main>
+        <section>
+            <h2>Garbage Collection Schedule</h2>
+            <p><strong>Days:</strong> Monday to Sunday 6:00 to 8:00 AM - 6:00 to 8:00 PM</p>
+            <p><strong>Pickup Location:</strong> Main Street, Zone 3</p>
+            <div class="map">
+                <img src="pusok.png" alt="Garbage collection location map">
+            </div>
+        </section>
+
+        <section>
+            <h2>Input Garbage Details</h2>
+            <form id="wasteForm">
+                <label for="garbageType">Type of Garbage:</label>
+                <input type="text" id="garbageType" required placeholder="E.g., Plastic, Organic" title="Please enter the type of garbage">
+                <label for="amount">Amount (in kg):</label>
+                <input type="number" id="amount" required placeholder="Enter weight in kg" min="0.1" title="Please enter a positive number for the amount">
+                <label for="date">Date:</label>
+                <input type="date" id="date" required title="Please select a valid date">
+                <button type="button" id="addGarbage">Add Garbage</button>
+            </form>
+        </section>
+
+        <section id="wasteResult">
+            <h2>Results</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Garbage Type</th>
+                        <th>Amount (kg)</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+            <canvas id="wasteChart" width="400" height="400"></canvas>
+            <canvas id="monthlyChart" width="400" height="400"></canvas>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const garbageTypeInput = document.getElementById("garbageType");
+            const amountInput = document.getElementById("amount");
+            const dateInput = document.getElementById("date");
+            const addGarbageButton = document.getElementById("addGarbage");
+            const tableBody = document.getElementById("tableBody");
+
+            // Chart.js setup with Data Labels plugin
+            const ctx = document.getElementById("wasteChart").getContext("2d");
+            const wasteData = {
+                labels: [],
+                datasets: [{
+                    data: [],
+                    backgroundColor: ['#4CAF50', '#FF5733', '#33B5E5', '#FFC300', '#C70039', '#900C3F', '#581845']
+                }]
+            };
+
+            const monthlyCtx = document.getElementById("monthlyChart").getContext("2d");
+            const monthlyData = {
+                labels: [],
+                datasets: [{
+                    label: 'Total Collection per Month',
+                    data: [],
+                    backgroundColor: '#00FF00', // Custom color for the bars
+                    borderColor: '#007F00', // Darker shade for the borders
+                    borderWidth: 1,
+                    borderRadius: 8, // Rounded corners for the bars
+                    hoverBackgroundColor: '#33FF33', // Lighter color on hover
+                    hoverBorderColor: '#005F00', // Darker border on hover
+                    hoverBorderWidth: 2, // Increased border width on hover
+                    barThickness: 120, // Adjusted bar thickness (increase or decrease this value)
+                }]
+            };
+
+            Chart.register(ChartDataLabels);
+
+            const wasteChart = new Chart(ctx, {
+                type: 'pie',
+                data: wasteData,
+                options: {
+                    plugins: {
+                        datalabels: {
+                            color: 'white',
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            },
+                            formatter: (value, context) => {
+                                const label = context.chart.data.labels[context.dataIndex];
+                                return `${label}: ${value.toFixed(1)} kg`; // Round to 1 decimal place
+                            }
+                        }
+                    }
+                }
+            });
+
+            const monthlyChart = new Chart(monthlyCtx, {
+                type: 'bar',
+                data: monthlyData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItem) {
+                                    return tooltipItem[0].label; // Show month name
+                                },
+                                label: function(tooltipItem) {
+                                    const month = tooltipItem.label;
+                                    const amount = tooltipItem.raw;
+                                    let categoryDetails = '';
+                                    const rows = Array.from(tableBody.children);
+                                    const monthlyCategories = {};
+
+                                    // Aggregate the data for specific categories in the month
+                                    rows.forEach(row => {
+                                        const rowDate = row.children[0].textContent;
+                                        const category = row.children[1].textContent;
+                                        const rowAmount = parseFloat(row.children[2].textContent);
+                                        const rowMonth = new Date(rowDate).toLocaleString('default', { month: 'long' });
+
+                                        if (rowMonth === month) {
+                                            if (!monthlyCategories[category]) {
+                                                monthlyCategories[category] = 0;
+                                            }
+                                            monthlyCategories[category] += rowAmount;
+                                        }
+                                    });
+
+                                    // Construct detailed string with all categories for the month
+                                    for (const category in monthlyCategories) {
+                                        categoryDetails += `${category}: ${monthlyCategories[category]} kg\n`;
+                                    }
+
+                                    return `${categoryDetails}\nTotal: ${amount} kg`;
+                                }
+                            },
+                            backgroundColor: '#333',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            bodyFont: {
+                                size: 14
+                            },
+                            footerFont: {
+                                size: 12
+                            },
+                            borderColor: '#444',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Month',
+                                color: '#004d4d',
+                                font: {
+                                    weight: 'bold',
+                                    size: 16
+                                }
+                            },
+                            grid: {
+                                display: true,
+                                color: '#ccc',
+                                borderColor: '#ddd'
+                            },
+                            ticks: {
+                                color: '#555',
+                                font: {
+                                    weight: 'bold',
+                                    size: 14
+                                }
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Total Weight (kg)',
+                                color: '#004d4d',
+                                font: {
+                                    weight: 'bold',
+                                    size: 16
+                                }
+                            },
+                            grid: {
+                                display: true,
+                                color: '#ccc',
+                                borderColor: '#ddd'
+                            },
+                            ticks: {
+                                color: '#555',
+                                font: {
+                                    weight: 'bold',
+                                    size: 14
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const loadDataFromLocalStorage = () => {
+                const savedData = JSON.parse(localStorage.getItem('wasteData')) || [];
+                savedData.forEach(item => {
+                    addRowToTable(item.date, item.garbageType, item.amount);
+                });
+            };
+
+            const saveDataToLocalStorage = () => {
+                const rows = Array.from(tableBody.children);
+                const data = rows.map(row => ({
+                    date: row.children[0].textContent,
+                    garbageType: row.children[1].textContent,
+                    amount: parseFloat(row.children[2].textContent)
+                }));
+                localStorage.setItem('wasteData', JSON.stringify(data));
+            };
+
+            const updateCharts = () => {
+                wasteData.labels = [];
+                wasteData.datasets[0].data = [];
+                monthlyData.labels = [];
+                monthlyData.datasets[0].data = [];
+
+                const rows = Array.from(tableBody.children);
+                const monthlyTotals = {};
+
+                rows.forEach(row => {
+                    const garbageType = row.children[1].textContent;
+                    const amount = parseFloat(row.children[2].textContent);
+                    const month = new Date(row.children[0].textContent).toLocaleString('default', { month: 'long' });
+
+                    // Update waste type pie chart
+                    const index = wasteData.labels.indexOf(garbageType);
+                    if (index === -1) {
+                        wasteData.labels.push(garbageType);
+                        wasteData.datasets[0].data.push(amount);
+                    } else {
+                        wasteData.datasets[0].data[index] += amount;
+                    }
+
+                    // Update monthly bar chart
+                    if (!monthlyTotals[month]) {
+                        monthlyTotals[month] = 0;
+                    }
+                    monthlyTotals[month] += amount;
+                });
+
+                monthlyData.labels = Object.keys(monthlyTotals);
+                monthlyData.datasets[0].data = Object.values(monthlyTotals);
+
+                wasteChart.update();
+                monthlyChart.update();
+            };
+
+            const addRowToTable = (date, garbageType, amount) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${date}</td>
+                    <td>${garbageType}</td>
+                    <td>${amount.toFixed(1)}</td>
+                    <td><button class="remove-btn" onclick="removeRow(this)">Remove</button></td>
+                `;
+                tableBody.appendChild(row);
+            };
+
+            window.removeRow = (button) => {
+                const row = button.closest('tr');
+                row.remove();
+                saveDataToLocalStorage();
+                updateCharts();
+            };
+
+            addGarbageButton.addEventListener("click", () => {
+                const garbageType = garbageTypeInput.value;
+                const amount = parseFloat(amountInput.value);
+                const date = dateInput.value;
+
+                if (garbageType && !isNaN(amount) && date) {
+                    addRowToTable(date, garbageType, amount);
+                    saveDataToLocalStorage();
+                    updateCharts();
+
+                    garbageTypeInput.value = '';
+                    amountInput.value = '';
+                    dateInput.value = '';
+                }
+            });
+
+            loadDataFromLocalStorage();
+            updateCharts();
+        });
+    </script>
+</body>
+</html>

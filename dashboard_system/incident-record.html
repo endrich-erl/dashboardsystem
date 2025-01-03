@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incident Record</title>
+    <style>
+    /* Global Styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f5f5f5;
+        color: #333;
+        line-height: 1.6;
+        padding: 20px;
+    }
+
+    /* Header Styling */
+    header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        background-color: #004d4d;
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+        font-size: 2.5rem;
+        margin: 0;
+        text-align: center;
+    }
+
+    /* Button Styling */
+    .back-button {
+        position: absolute;
+        top: 20px;
+        left: 25px;
+        color: #fff;
+        padding: 10px 20px;
+        text-decoration: none;
+        border: 2px solid #00e6e6;
+        border-radius: 25px;
+        font-weight: bold;
+        background: transparent;
+        transition: all 0.4s;
+    }
+
+    .back-button:hover {
+        background: #00e6e6;
+        color: #004d4d;
+        transform: scale(1.1);
+    }
+
+    /* Main Section Styling */
+    main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 40px;
+    }
+
+    /* Card Styles */
+    .card {
+        background-color: #fff;
+        width: 100%;
+        max-width: 800px;
+        margin: 20px 0;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        border-top: 5px solid #004d4d;
+    }
+
+    .card h2 {
+        font-size: 2.4rem;
+        color: #004d4d;
+        margin-bottom: 20px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    /* Action Button Styles */
+    .action-button {
+        background-color: #004d4d;
+        color: white;
+        padding: 14px 24px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 15px auto;
+        display: block;
+        font-size: 1.2rem;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .action-button:hover {
+        background-color: #00e6e6;
+        transform: scale(1.05);
+    }
+
+    /* Incident Card Design */
+    .incident-card {
+        background-color: #f9f9f9;
+        padding: 20px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .incident-card h3 {
+        color: #004d4d;
+        margin-bottom: 10px;
+        font-size: 1.6rem;
+    }
+
+    .incident-card p {
+        font-size: 1.1rem;
+        margin: 5px 0;
+        color: #333;
+    }
+
+    .incident-card p span {
+        font-weight: bold;
+    }
+
+    /* Form Styles */
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    form label {
+        margin: 10px 0 5px;
+        font-weight: bold;
+    }
+
+    form input,
+    form textarea {
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+    }
+
+    form textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    /* Center alignment for "No incidents found" */
+    #incidentList p {
+        text-align: center;
+        color: #666;
+    }
+
+    /* Delete Button Styling */
+    .delete-button {
+        background-color: #dc143c;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .delete-button:hover {
+        background-color: #ff4d63;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+        .card {
+            padding: 20px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+        }
+
+        .action-button {
+            padding: 12px 20px;
+        }
+
+        .incident-card h3 {
+            font-size: 1.4rem;
+        }
+    }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Incident Record</h1>
+        <button onclick="window.location.href='dashboard.html'" class="back-button">Back</button>
+    </header>
+
+    <main>
+        <!-- Incident Records Section -->
+        <section class="card" id="incident-action">
+            <h2>Incident Records</h2>
+            <button id="proceedButton" class="action-button">Proceed</button>
+        </section>
+
+        <!-- History of Incidents Section -->
+        <section id="incident-history" class="card" style="display: none;">
+            <h2>History of Incidents</h2>
+            <div id="incidentList">
+                <!-- List of incidents will appear here -->
+            </div>
+            <button id="addIncidentButton" class="action-button">Add Incident</button>
+            <button id="deleteHistoryButton" class="delete-button">Delete All History</button>
+        </section>
+
+        <!-- Add Incident Form Section -->
+        <section id="add-incident-form" class="card" style="display: none;">
+            <h2>Add Incident</h2>
+            <form id="incidentForm">
+                <label for="incidentDate">Date:</label>
+                <input type="date" id="incidentDate" required>
+                
+                <label for="incidentTime">Time:</label>
+                <input type="time" id="incidentTime" required>
+                
+                <label for="incidentName">Name (Optional):</label>
+                <input type="text" id="incidentName" placeholder="Leave blank for anonymous reporting">
+                
+                <label for="incidentCase">Case:</label>
+                <input type="text" id="incidentCase" required>
+                
+                <label for="personalInfo">Other Personal Info:</label>
+                <textarea id="personalInfo" required></textarea>
+                
+                <label for="supportingEvidence">Upload Supporting Evidence (Photo/Video):</label>
+                <input type="file" id="supportingEvidence" accept="image/*,video/*">
+
+                <button type="submit" class="action-button">Submit</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        const proceedButton = document.getElementById('proceedButton');
+        const addIncidentButton = document.getElementById('addIncidentButton');
+        const deleteHistoryButton = document.getElementById('deleteHistoryButton');
+        const incidentForm = document.getElementById('incidentForm');
+        const incidentHistorySection = document.getElementById('incident-history');
+        const incidentActionSection = document.getElementById('incident-action');
+        const addIncidentFormSection = document.getElementById('add-incident-form');
+
+        // Show History Section on "Proceed"
+        proceedButton.addEventListener('click', () => {
+            incidentActionSection.style.display = 'none';
+            incidentHistorySection.style.display = 'block';
+            loadHistory();
+        });
+
+        // Show Add Incident Form
+        addIncidentButton.addEventListener('click', () => {
+            addIncidentFormSection.style.display = 'block';
+        });
+
+        // Submit Form
+        incidentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newIncident = {
+                date: document.getElementById('incidentDate').value,
+                time: document.getElementById('incidentTime').value,
+                name: document.getElementById('incidentName').value || 'Anonymous',
+                case: document.getElementById('incidentCase').value,
+                personalInfo: document.getElementById('personalInfo').value,
+                supportingEvidence: document.getElementById('supportingEvidence').files[0]?.name || 'No file uploaded',
+            };
+
+            const incidents = JSON.parse(localStorage.getItem('incidents')) || [];
+            incidents.push(newIncident);
+            localStorage.setItem('incidents', JSON.stringify(incidents));
+
+            // Reset the form fields after submission
+            incidentForm.reset(); 
+
+            addIncidentFormSection.style.display = 'none';
+            loadHistory();
+        });
+
+        // Load and Display History
+        function loadHistory() {
+            const incidents = JSON.parse(localStorage.getItem('incidents')) || [];
+            const incidentList = document.getElementById('incidentList');
+            incidentList.innerHTML = '';
+
+            if (incidents.length === 0) {
+                incidentList.innerHTML = '<p>No incident records found.</p>';
+                return;
+            }
+
+            incidents.forEach((incident, index) => {
+                const card = document.createElement('div');
+                card.className = 'incident-card';
+
+                card.innerHTML = `
+                    <h3>Incident ${index + 1}</h3>
+                    <p><span>Date:</span> ${incident.date}</p>
+                    <p><span>Time:</span> ${incident.time}</p>
+                    <p><span>Name:</span> ${incident.name}</p>
+                    <p><span>Case:</span> ${incident.case}</p>
+                    <p><span>Personal Info:</span> ${incident.personalInfo}</p>
+                    <p><span>Evidence:</span> ${incident.supportingEvidence}</p>
+                    <button class="action-button delete-button" data-index="${index}">Delete</button>
+                `;
+
+                incidentList.appendChild(card);
+            });
+
+            // Add event listeners for all delete buttons
+            document.querySelectorAll('.delete-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const index = e.target.getAttribute('data-index');
+                    deleteIncident(index);
+                });
+            });
+        }
+
+        // Delete a specific incident
+        function deleteIncident(index) {
+            const incidents = JSON.parse(localStorage.getItem('incidents')) || [];
+            incidents.splice(index, 1);
+            localStorage.setItem('incidents', JSON.stringify(incidents));
+            loadHistory();
+        }
+
+        // Delete All History
+        deleteHistoryButton.addEventListener('click', () => {
+            localStorage.removeItem('incidents');
+            loadHistory();
+        });
+    </script>
+
+</body>
+</html>
